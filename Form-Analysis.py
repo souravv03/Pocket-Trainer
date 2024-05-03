@@ -29,3 +29,4 @@ with open('data/InfinityAI_InfiniteRep_armraise_v1.0/data/000000.json') as json_
             created = True
     print(df_new)
     df_new.to_csv("landmarks.csv")
+

@@ -1,0 +1,8 @@
+========== DO YOU WANT MORE (OR DIFFERENT) DATA? ===========
+
+Do you want data that's different than InfiniteRep? Different movements, labels, demographics, or anything else? We specialize in generating custom synthetic datasets. Drop us a line at info@toinfinity.ai.  
+
+
+========================= INFINITY AI ========================= 
+
+Infinity AI is a synthetic data-as-a-service company. We generate the exact training data you need to solve your ML problem. It's as easy as picking your scene ingredients (people, movement, environment) and then telling us whether you want a lot or a little variation of each. Get in touch (info@toinfinity.ai) or visit us at https://toinfinity.ai/
