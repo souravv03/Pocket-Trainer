@@ -1,13 +1,14 @@
+# Data Loading Script and CSV creation
+
 # import tensorflow as tf
 # from tensorflow.keras import datasets, layers, models
 import json
-
-# import matplotlib as plt
+import matplotlib as plt
 # import numpy as np
 import pandas as pd
 
 
-with open('data/InfinityAI_InfiniteRep_armraise_v1.0/data/000000.json') as json_data:
+with open('Pocket-Trainer/All_Simulated_Data/InfinityAI_InfiniteRep_armraise_v1/data/000000.json') as json_data:
     data = json.load(json_data)
     df = pd.DataFrame(data['annotations'])
     quaternions = df['quaternions']
@@ -27,6 +28,10 @@ with open('data/InfinityAI_InfiniteRep_armraise_v1.0/data/000000.json') as json_
         else:
             df_new = pd.DataFrame([new_dict])
             created = True
-    print(df_new)
-    df_new.to_csv("landmarks.csv")
+    #print(df_new)
+    # 224 total columns, each feature with 4 points (x,y,v,z) thus 56 distinct features
+    col_names = list(df_new.columns)
+    print(col_names)
+    print(len(col_names))
+    #df_new.to_csv("landmarks.csv")
 
