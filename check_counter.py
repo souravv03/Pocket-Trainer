@@ -20,8 +20,8 @@ class CountReps:
 
     def count_reps(self):
         """function to increment self.rep_count when necessary
-        currently increments by 0.5 when going up and y positions are less than 100
-        also increments by 0.5 when going down and y positions are over 500
+        currently increments by 0.5 when going up and both y values are less than 100
+        also increments by 0.5 when going down and both y values are over 500
         """
         if self.going_up and self.vector[-1][1] < 100 and self.vector[-1][3] < 100:
             self.going_up = False
