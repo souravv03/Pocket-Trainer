@@ -95,7 +95,11 @@ def check_vid():
             cv2.imshow("Video", image)
             cv2.waitKey(1)
             continue
-
+        if hand0 == [] or hand1 == []:
+            cv2.putText(image, "hand not detected", (50, 100), 0, 1, (0, 0, 255), 1, cv2.LINE_AA)
+            cv2.imshow("Video", image)
+            cv2.waitKey(1)
+            continue
         cv2.putText(image, "hand0:", (50, 65), 0, 1, (0, 0, 255), 1, cv2.LINE_AA)
         cv2.putText(image, str(hand0), (50, 100), 0, 1, (0, 0, 255), 1, cv2.LINE_AA)
 
