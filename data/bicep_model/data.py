@@ -4,7 +4,7 @@ import mediapipe as mp
 import numpy as np
 
 
-DATASET_PATH = "/Users/rohan/GaTech Dropbox/Rohan Modi/Pocket-Trainer/data/bicep_model/train2.csv"
+DATASET_PATH = "/Users/Sourav/Desktop/Startup/Pocket-Trainer/data/bicep_model/train2.csv"
 IMPORTANT_LMS = [
     "NOSE",
     "LEFT_SHOULDER",
@@ -91,5 +91,5 @@ def export_landmark_to_csv(dataset_path: str, results, action: str) -> None:
         print(e)
         pass
 
-capture_vid("/Users/rohan/GaTech Dropbox/Rohan Modi/Pocket-Trainer/data/InfinityAI_InfiniteRep_armraise_v1.0/data/000000.mp4")
-
+#completed labeling front raise vids: 21-50, ommitted 39
+capture_vid("/Users/Sourav/Desktop/Startup/Pocket-Trainer/All_Simulated_Data/InfinityAI_InfiniteRep_armraise_v1/data/000050.mp4")
