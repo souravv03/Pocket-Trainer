@@ -2,6 +2,10 @@ import mediapipe as mp
 import cv2
 import numpy as np
 import pickle
+import check_counter
+from gtts import gTTS
+import os
+
 
 IMPORTANT_LMS = [
     "NOSE",
@@ -21,11 +25,12 @@ pose = mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
 
 def capture_vid(video_path):
-
+    countReps = check_counter.CountArmRaiseReps()
     with open("rf_classifier", "rb") as handler:
         rf = pickle.load(handler)
 
     cap = cv2.VideoCapture(video_path)
+    rep_count = 0
     
     while cap.isOpened():
         ret, image = cap.read()
@@ -35,7 +40,7 @@ def capture_vid(video_path):
         image.flags.writeable = False  # for mp performance
         results = pose.process(image)
         if not results.pose_landmarks:
-            print(f"landmarks not found for {image}")
+            # print(f"landmarks not found for {image}")
             continue
         landmarks = results.pose_landmarks.landmark
         keypoints = []
@@ -64,12 +69,29 @@ def capture_vid(video_path):
   
         fontScale = 0.5
         thickness = 1
-        image = cv2.putText(image, text, (10, 20), font,
+        image = cv2.putText(image, text, (10, 60), font,
                         fontScale, colors, thickness, cv2.LINE_AA)
+        prev_rep_count = rep_count
+        rep_count = countReps.update_vector(landmarks[mp_pose.PoseLandmark['RIGHT_WRIST'].value].y, 
+                                            landmarks[mp_pose.PoseLandmark['LEFT_WRIST'].value].y, 
+                                            landmarks[mp_pose.PoseLandmark['RIGHT_SHOULDER'].value].y, 
+                                            landmarks[mp_pose.PoseLandmark['LEFT_SHOULDER'].value].y, 
+                                            landmarks[mp_pose.PoseLandmark['RIGHT_HIP'].value].y, 
+                                            landmarks[mp_pose.PoseLandmark['LEFT_HIP'].value].y)
+        text = f"Rep count: {rep_count}"
+        colors = (255, 255, 255)
+        image = cv2.putText(image, text, (10, 30), font,
+                        fontScale, colors, thickness, cv2.LINE_AA)
+        text = f'{rep_count}'
+        if rep_count != prev_rep_count:
+            prev_rep_count = rep_count
+            language = 'en'
+            myobj = gTTS(text=text, lang=language, slow=False)
+            myobj.save("welcome.mp3")
+            # os.system("afplay welcome.mp3")
 
         cv2.imshow("CV2", image)  # display the frame
-        k = cv2.waitKey(0) & 0xFF  # delay set to 0, so will wait indefinitely for key press
-        count = 0
+        k = cv2.waitKey(20) & 0xFF  # delay set to 0, so will wait indefinitely for key press
                 
     cap.release()
     cv2.destroyAllWindows()
